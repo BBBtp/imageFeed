@@ -9,10 +9,13 @@ final class ImagesListViewController: UIViewController {
         formatter.timeStyle = .none
         return formatter
     }()
+    
+    let currentDate = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.rowHeight = 200
+        
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 }
@@ -41,7 +44,7 @@ extension ImagesListViewController {
             return
         }
         cell.cellImage.image = image
-        cell.dateLabel.text = dateFormatter.string(from: Date())
+        cell.dateLabel.text = dateFormatter.string(from: currentDate)
         
         let liked = indexPath.row % 2 == 0
         let likedImage = liked ? UIImage(named:"No Active") : UIImage(named:"Active")
@@ -51,7 +54,7 @@ extension ImagesListViewController {
 }
 
 extension ImagesListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let image = UIImage(named: photosName[indexPath.row]) else{
