@@ -14,6 +14,10 @@
 		4369EA092C47F42400456488 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4369EA082C47F42400456488 /* Assets.xcassets */; };
 		4369EA0C2C47F42400456488 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4369EA0A2C47F42400456488 /* LaunchScreen.storyboard */; };
 		4369EA352C4EA9AA00456488 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4369EA342C4EA9AA00456488 /* ImagesListCell.swift */; };
+		4369EA382C5388B400456488 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4369EA372C5388B400456488 /* ProfileViewController.swift */; };
+		4369EA3D2C538E2F00456488 /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4369EA3B2C538E2F00456488 /* SFProText-Bold.ttf */; };
+		4369EA3E2C538E2F00456488 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4369EA3C2C538E2F00456488 /* SFProText-Regular.ttf */; };
+		4369EA402C58E63300456488 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4369EA3F2C58E63300456488 /* SingleImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		4369EA0B2C47F42400456488 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4369EA0D2C47F42400456488 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4369EA342C4EA9AA00456488 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		4369EA372C5388B400456488 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		4369EA3B2C538E2F00456488 /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
+		4369EA3C2C538E2F00456488 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
+		4369EA3F2C58E63300456488 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,8 @@
 		4369E9FE2C47F42300456488 /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				4369EA392C538E0900456488 /* Recources */,
+				4369EA362C53889E00456488 /* ProfileList */,
 				4369EA332C4EA98C00456488 /* ImagesList */,
 				4369E9FF2C47F42300456488 /* AppDelegate.swift */,
 				4369EA012C47F42300456488 /* SceneDelegate.swift */,
@@ -74,8 +84,34 @@
 			children = (
 				4369EA032C47F42300456488 /* ImagesListViewController.swift */,
 				4369EA342C4EA9AA00456488 /* ImagesListCell.swift */,
+				4369EA3F2C58E63300456488 /* SingleImageViewController.swift */,
 			);
 			path = ImagesList;
+			sourceTree = "<group>";
+		};
+		4369EA362C53889E00456488 /* ProfileList */ = {
+			isa = PBXGroup;
+			children = (
+				4369EA372C5388B400456488 /* ProfileViewController.swift */,
+			);
+			path = ProfileList;
+			sourceTree = "<group>";
+		};
+		4369EA392C538E0900456488 /* Recources */ = {
+			isa = PBXGroup;
+			children = (
+				4369EA3A2C538E1A00456488 /* Fonts */,
+			);
+			path = Recources;
+			sourceTree = "<group>";
+		};
+		4369EA3A2C538E1A00456488 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4369EA3B2C538E2F00456488 /* SFProText-Bold.ttf */,
+				4369EA3C2C538E2F00456488 /* SFProText-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +175,8 @@
 				4369EA0C2C47F42400456488 /* LaunchScreen.storyboard in Resources */,
 				4369EA092C47F42400456488 /* Assets.xcassets in Resources */,
 				4369EA072C47F42300456488 /* Main.storyboard in Resources */,
+				4369EA3E2C538E2F00456488 /* SFProText-Regular.ttf in Resources */,
+				4369EA3D2C538E2F00456488 /* SFProText-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +189,9 @@
 			files = (
 				4369EA042C47F42300456488 /* ImagesListViewController.swift in Sources */,
 				4369EA352C4EA9AA00456488 /* ImagesListCell.swift in Sources */,
+				4369EA382C5388B400456488 /* ProfileViewController.swift in Sources */,
 				4369EA002C47F42300456488 /* AppDelegate.swift in Sources */,
+				4369EA402C58E63300456488 /* SingleImageViewController.swift in Sources */,
 				4369EA022C47F42300456488 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
