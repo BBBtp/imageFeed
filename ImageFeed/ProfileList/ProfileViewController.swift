@@ -48,10 +48,10 @@ extension ProfileViewController{
         view.addSubview(profileImageView)
         
         NSLayoutConstraint.activate([
-        profileImageView.widthAnchor.constraint(equalToConstant: 70),
-        profileImageView.heightAnchor.constraint(equalToConstant: 70),
-        profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
-        profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
+            profileImageView.widthAnchor.constraint(equalToConstant: 70),
+            profileImageView.heightAnchor.constraint(equalToConstant: 70),
+            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            profileImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16)
         ])
         self.profileImage = profileImageView
     }
@@ -60,7 +60,7 @@ extension ProfileViewController{
         let nameLabel = UILabel()
         
         nameLabel.text = "Екатерина Новикова"
-        nameLabel.textColor = .white
+        nameLabel.textColor = UIColor(named: "YP White (iOS)")
         nameLabel.font = .systemFont(ofSize: 23, weight: .bold)
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +73,7 @@ extension ProfileViewController{
         let emailLabel = UILabel()
         
         emailLabel.text = "@ekaterina_nov"
-        emailLabel.textColor = .gray
+        emailLabel.textColor = UIColor(named: "YP Gray (iOS)")
         emailLabel.font = .systemFont(ofSize: 13, weight: .regular)
         
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +85,7 @@ extension ProfileViewController{
         let descriptionLabel = UILabel()
         
         descriptionLabel.text = "Hello, World"
-        descriptionLabel.textColor = .white
+        descriptionLabel.textColor = UIColor(named: "YP White (iOS)")
         descriptionLabel.font = .systemFont(ofSize: 13, weight: .regular)
         
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -112,10 +112,10 @@ extension ProfileViewController{
         view.addSubview(logoutButton)
         
         NSLayoutConstraint.activate([
-        logoutButton.widthAnchor.constraint(equalToConstant: 44),
-        logoutButton.heightAnchor.constraint(equalToConstant: 44),
-        logoutButton.centerYAnchor.constraint(equalTo: profileImage!.centerYAnchor),
-        logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+            logoutButton.widthAnchor.constraint(equalToConstant: 44),
+            logoutButton.heightAnchor.constraint(equalToConstant: 44),
+            logoutButton.centerYAnchor.constraint(equalTo: profileImage!.centerYAnchor),
+            logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
         ])
         
         self.logoutButton = logoutButton

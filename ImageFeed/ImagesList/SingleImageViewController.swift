@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 final class SingleImageViewController:UIViewController {
-     var image : UIImage?{
+    var image : UIImage?{
         didSet {
-                    guard isViewLoaded else { return }
-                    guard let image = image else {return}
+            guard isViewLoaded else { return }
+            guard let image = image else {return}
             
-                    imageView.image = image
-                    imageView.frame.size = image.size
-                    rescaleAndCenterImageInScrollView()
-                }
+            imageView.image = image
+            imageView.frame.size = image.size
+            rescaleAndCenterImageInScrollView()
+        }
     }
     @IBOutlet weak var imageView: UIImageView!
     

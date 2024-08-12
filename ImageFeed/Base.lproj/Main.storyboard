@@ -16,8 +16,8 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="EfO-zS-yg9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="Background Color"/>
-                        <color key="barTintColor" name="Background Color"/>
+                        <color key="backgroundColor" name="YP Black (iOS)"/>
+                        <color key="barTintColor" name="YP Black (iOS)"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
@@ -100,7 +100,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="Background Color"/>
+                        <color key="backgroundColor" name="YP Black (iOS)"/>
                         <constraints>
                             <constraint firstItem="Uvy-TV-T7F" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="7X3-3Y-Ikh"/>
                             <constraint firstItem="Uvy-TV-T7F" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="LzN-pg-mJI"/>
@@ -126,7 +126,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="NfR-re-8dO"/>
-                        <color key="backgroundColor" name="BackgroundColor"/>
+                        <color key="backgroundColor" name="YP Black (iOS)"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="Profile Active" id="eTq-gy-imk"/>
                 </viewController>
@@ -146,7 +146,7 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <navigationBarAppearance key="standardAppearance">
-                            <color key="backgroundColor" name="Background Color"/>
+                            <color key="backgroundColor" name="YP Black (iOS)"/>
                         </navigationBarAppearance>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -193,10 +193,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Qe-Ya-fBi" userLabel="Share Button">
-                                <rect key="frame" x="181.5" y="828" width="51" height="51"/>
+                                <rect key="frame" x="182" y="829" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="51" id="3Fd-h2-zPH"/>
-                                    <constraint firstAttribute="height" constant="51" id="IRm-fk-FCi"/>
+                                    <constraint firstAttribute="width" constant="50" id="3Fd-h2-zPH"/>
+                                    <constraint firstAttribute="height" constant="50" id="IRm-fk-FCi"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Sharing"/>
@@ -206,7 +206,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OzG-Ef-Fxu"/>
-                        <color key="backgroundColor" name="Background Color"/>
+                        <color key="backgroundColor" name="YP Background (iOS)"/>
                         <constraints>
                             <constraint firstItem="OzG-Ef-Fxu" firstAttribute="bottom" secondItem="9Qe-Ya-fBi" secondAttribute="bottom" constant="17" id="0D4-qO-Fcg"/>
                             <constraint firstItem="OzG-Ef-Fxu" firstAttribute="leading" secondItem="pJq-lF-sel" secondAttribute="leading" id="5kg-BR-7Fd"/>
@@ -238,14 +238,11 @@
         <image name="Main Active" width="30" height="30"/>
         <image name="Profile Active" width="30" height="30"/>
         <image name="Sharing" width="51" height="51"/>
-        <namedColor name="Background Color">
-            <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="BackgroundColor">
-            <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="YP Background (iOS)">
             <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="YP Black (iOS)">
+            <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
