@@ -44,18 +44,19 @@ extension AuthViewController: WebViewViewControllerDelegate {
         
         vc.dismiss(animated: true)
         
-        OAuth2Service.shared.fetchOAuthToken(code: code) {[weak self] result in
-            guard let self, let delegate = self.delegate else{
-                fatalError("Error AuthController not exists")
-            }
-            switch result{
-            case .success(let token):
-                self.storage.token = token
-                delegate.didAuthenticate(self)
-                print("Successful save token")
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
+        OAuth2Service.shared.fetchOAuthToken(code: code) { [weak self] result in
+            guard let self = self, let delegate = self.delegate else {
+                    print("Error: AuthController not exists or delegate is nil")
+                    return
+                }
+                switch result {
+                case .success(let token):
+                    self.storage.token = token
+                    delegate.didAuthenticate(self)
+                    print("Successful save token")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
         }
     }
     

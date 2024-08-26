@@ -10,19 +10,18 @@ import UIKit
 
 final class SplashViewController: UIViewController {
     
-    weak var delegate: AuthViewControllerDelegate?
-    
     private let storage = OAuth2TokenStorage()
     
     private let showAuthenticationScreenSegueIdentifier = "showAuthenticationScreenSegueIdentifier"
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if storage.token != nil {
             showBarController()
-        }
-        else{
+        } else {
             performSegue(withIdentifier: showAuthenticationScreenSegueIdentifier, sender: nil)
         }
     }
@@ -55,8 +54,7 @@ extension SplashViewController{
         
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
-        
-        
+
         window.rootViewController = tabBarController
     }
 }
