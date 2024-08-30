@@ -6,21 +6,25 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     private var profileImage: UIImageView?
     private var logoutButton: UIButton?
     private var nameLabel: UILabel?
-    private var emailLabel: UILabel?
+    private var loginLabel: UILabel?
     private var descriptionLabel: UILabel?
+    private let storage = OAuth2TokenStorage()
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
     
     @objc
     private func didTapLogoutButton() {
         nameLabel?.removeFromSuperview()
         nameLabel = nil
         
-        emailLabel?.removeFromSuperview()
-        emailLabel = nil
+        loginLabel?.removeFromSuperview()
+        loginLabel = nil
         
         descriptionLabel?.removeFromSuperview()
         descriptionLabel = nil
@@ -35,12 +39,55 @@ final class ProfileViewController: UIViewController {
         createProfileImageView()
         createLabels()
         createButton()
+        guard let profile = ProfileService.shared.profile else {return}
+        updateProfileDetails(profile:profile )
+        profileImageServiceObserver = NotificationCenter.default    // 2
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification, // 3
+                object: nil,                                        // 4
+                queue: .main                                        // 5
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()                                 // 6
+            }
+        updateAvatar()                                              // 7
+    }
+    
+    private func updateAvatar() {                                   // 8
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else {
+            return }
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        self.profileImage?.kf.indicatorType = .activity
+        self.profileImage?.kf.setImage(with: url,
+                                       placeholder: UIImage(named: "Stub"),
+                                       options: [.processor(processor),
+                                                 .cacheSerializer(FormatIndicatedCacheSerializer.png),
+                                        .transition(.fade(0.2))
+                                       ]
+        ){
+            result in
+            switch result{
+            case .success(let value):
+                print("Image: \(value.image)")
+                print("Cache type: \(value.cacheType)")
+                print("Sourse: \(value.source)")
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        
     }
 }
+
 
 extension ProfileViewController{
     
     func createProfileImageView() {
+        view.backgroundColor = UIColor(named: "YP Black (iOS)")
         let profileImage = UIImage(named: "Photo")
         let profileImageView = UIImageView(image: profileImage)
         
@@ -70,17 +117,17 @@ extension ProfileViewController{
         nameLabel.topAnchor.constraint(equalTo: profileImage!.bottomAnchor, constant: 8).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         
-        let emailLabel = UILabel()
+        let loginLabel = UILabel()
         
-        emailLabel.text = "@ekaterina_nov"
-        emailLabel.textColor = UIColor(named: "YP Gray (iOS)")
-        emailLabel.font = .systemFont(ofSize: 13, weight: .regular)
+        loginLabel.text = "@ekaterina_nov"
+        loginLabel.textColor = UIColor(named: "YP Gray (iOS)")
+        loginLabel.font = .systemFont(ofSize: 13, weight: .regular)
         
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emailLabel)
+        loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loginLabel)
         
-        emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
-        emailLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
+        loginLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8).isActive = true
+        loginLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         
         let descriptionLabel = UILabel()
         
@@ -91,11 +138,11 @@ extension ProfileViewController{
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionLabel)
         
-        descriptionLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 8).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 8).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16).isActive = true
         
         self.nameLabel = nameLabel
-        self.emailLabel = emailLabel
+        self.loginLabel = loginLabel
         self.descriptionLabel = descriptionLabel
     }
     
@@ -119,5 +166,11 @@ extension ProfileViewController{
         ])
         
         self.logoutButton = logoutButton
+    }
+    
+    func updateProfileDetails(profile: Profile){
+        self.descriptionLabel?.text = profile.bio
+        self.nameLabel?.text = profile.name
+        self.loginLabel?.text = profile.loginName
     }
 }

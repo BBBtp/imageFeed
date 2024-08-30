@@ -8,15 +8,22 @@
 import Foundation
 import UIKit
 
+enum AuthServiceError: Error {
+    case invalidRequest
+}
 
 final class OAuth2Service {
     
     static let shared = OAuth2Service()
     private init() {}
     
+    private let urlSession = URLSession.shared
+    
+    private var task: URLSessionTask?
+    private var lastCode: String?
     
     
-    func makeOAuthTokenRequest(code: String) -> URLRequest {
+    func makeOAuthTokenRequest(code: String) -> URLRequest? {
         
         guard var urlComponents = URLComponents(string: Constants.Token.baseAuthUrl)
         else{
@@ -41,23 +48,35 @@ final class OAuth2Service {
     }
     
     func fetchOAuthToken(code: String, completion: @escaping (Swift.Result<String, Error>) -> Void) {
-        let request = makeOAuthTokenRequest(code: code)
+        assert(Thread.isMainThread)
         
-        let task = URLSession.shared.data(for: request) { result in
-            switch result {
-            case .success(let data):
-                do{
-                    let tokenResponse = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-                    completion(.success(tokenResponse.access_token))
-                }
-                catch{
+        guard lastCode != code else {
+            completion(.failure(AuthServiceError.invalidRequest))
+            return
+        }
+        
+        task?.cancel()
+        lastCode = code
+        
+        guard  let request = makeOAuthTokenRequest(code: code) else {completion(.failure(AuthServiceError.invalidRequest))
+            return}
+        
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
+            DispatchQueue.main.async {
+                switch result{
+                case .success(let token):
+                    completion(.success(token.access_token))
+                case .failure(let error):
                     completion(.failure(error))
+                    print("[OAuthService.fetchOAuthToken]: NetworkError - \(error.localizedDescription) for code: \(code)")
                 }
                 
-            case .failure(let error):
-                completion(.failure(error))
+                self?.lastCode = nil
+                self?.task = nil
             }
+            
         }
+        
         task.resume()
     }
 }

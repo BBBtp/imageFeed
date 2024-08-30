@@ -1,6 +1,7 @@
 
 import UIKit
 import Foundation
+import ProgressHUD
 
 final class AuthViewController : UIViewController{
     
@@ -42,17 +43,25 @@ extension AuthViewController: WebViewViewControllerDelegate {
     
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         
+        UIBlockingProgressHUD.show()
+        
         OAuth2Service.shared.fetchOAuthToken(code: code) { [weak self] result in
             guard let self = self, let delegate = self.delegate else {
                     print("Error: AuthController not exists or delegate is nil")
                     return
                 }
+            
+            UIBlockingProgressHUD.dismiss()
                 switch result {
                 case .success(let token):
                     self.storage.token = token
                     delegate.didAuthenticate(self)
                     print("Successful save token")
                 case .failure(let error):
+                    let alert = UIAlertController(title: "Упс..Что-то пошло не так", message: "Не удалось войти в систему", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "Ок", style: .default)
+                    alert.addAction(action)
+                    vc.present(alert, animated: true, completion: nil)
                     print(error.localizedDescription)
                 }
         }
