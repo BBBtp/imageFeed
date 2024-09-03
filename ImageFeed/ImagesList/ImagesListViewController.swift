@@ -1,8 +1,8 @@
 import UIKit
+import Kingfisher
 
 final class ImagesListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
-    private let photosName: [String] = Array(0..<20).map{ "\($0)" }
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -10,13 +10,26 @@ final class ImagesListViewController: UIViewController {
         formatter.timeStyle = .none
         return formatter
     }()
+    private var ImageListObserver: NSObjectProtocol?
+    private var photos: [Photo] = []
     
     let currentDate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        
+        ImageListObserver = NotificationCenter.default.addObserver(
+            forName: ImagesListService.didChangeNotification,
+            object: nil,
+            queue: .main
+        ){ [weak self] _ in guard let self = self else {return}
+            self.updateTableViewAnimated()
+        }
+        ImagesListService.shared.fetchPhotosNextPage()
     }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
@@ -28,9 +41,8 @@ final class ImagesListViewController: UIViewController {
                 return
             }
             
-            let image = UIImage(named: photosName[indexPath.row])
-            _ = viewController.view
-            viewController.image = image
+            
+            viewController.photo = photos[indexPath.row]
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -39,7 +51,7 @@ final class ImagesListViewController: UIViewController {
 
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photosName.count
+        return photos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,16 +69,39 @@ extension ImagesListViewController: UITableViewDataSource {
 
 extension ImagesListViewController {
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        guard let image = UIImage(named: photosName[indexPath.row]) else {
-            return
+        let photo = photos[indexPath.row]
+        let photoUrl = URL(string: photo.thumbImageURL)
+        cell.dateLabel.isHidden = true
+        cell.likeButton.isHidden = true
+        cell.cellImage.kf.indicatorType = .activity
+        cell.cellImage.kf.setImage(with: photoUrl,
+                                   placeholder: UIImage(named: "load"),
+                                   options: [
+                                    .cacheSerializer(FormatIndicatedCacheSerializer.png),
+                                    .transition(.fade(0.2))
+                                   ]
+        )
+        {
+            result in
+            switch result{
+            case .success(let value):
+                print("Image: \(value.image)")
+                print("Cache type: \(value.cacheType)")
+                print("Sourse: \(value.source)")
+                
+                
+                cell.dateLabel.isHidden = false
+                cell.likeButton.isHidden = false
+                
+                
+                cell.dateLabel.text = photo.createdAt != nil ? (self.dateFormatter.string(from: photo.createdAt ?? Date())) : ""
+                let likedImage = photo.isLiked ? UIImage(named:"Active") : UIImage(named:"No Active")
+                cell.likeButton.setImage(likedImage, for: .normal)
+            case .failure(let error):
+                print(error)
+            }
         }
-        cell.cellImage.image = image
-        cell.dateLabel.text = dateFormatter.string(from: currentDate)
         
-        let liked = indexPath.row % 2 == 0
-        let likedImage = liked ? UIImage(named:"No Active") : UIImage(named:"Active")
-        
-        cell.likeButton.setImage(likedImage, for: .normal)
     }
 }
 
@@ -75,18 +110,37 @@ extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let image = UIImage(named: photosName[indexPath.row]) else{
-            return 0
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == photos.count - 1 {
+            ImagesListService.shared.fetchPhotosNextPage()
         }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let photo = photos[indexPath.row]
         
         let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
         let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
-        let imageWidth = image.size.width
+        let imageWidth = photo.size.width
         let scale = imageViewWidth / imageWidth
-        let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
+        let cellHeight = photo.size.height * scale + imageInsets.top + imageInsets.bottom
         return cellHeight
+        
+    }
+}
+
+extension ImagesListViewController {
+    func updateTableViewAnimated(){
+        let oldCount = photos.count
+        let newCount = ImagesListService.shared.photos.count
+        
+        photos = ImagesListService.shared.photos
+        
+        if oldCount != newCount{
+            tableView.performBatchUpdates {
+                let indexPaths = (oldCount..<newCount).map {i in IndexPath(row: i, section: 0)}
+                tableView.insertRows(at: indexPaths, with: .automatic)
+            } completion: { _ in}
+        }
         
     }
 }

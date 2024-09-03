@@ -71,6 +71,7 @@ final class ProfileImageService{
             self?.lastUsername = nil
             self?.task = nil
         }
+        self.task = task
         task.resume()
     }
     

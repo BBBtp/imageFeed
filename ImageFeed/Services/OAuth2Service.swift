@@ -65,7 +65,7 @@ final class OAuth2Service {
             DispatchQueue.main.async {
                 switch result{
                 case .success(let token):
-                    completion(.success(token.access_token))
+                    completion(.success(token.accessToken))
                 case .failure(let error):
                     completion(.failure(error))
                     print("[OAuthService.fetchOAuthToken]: NetworkError - \(error.localizedDescription) for code: \(code)")
