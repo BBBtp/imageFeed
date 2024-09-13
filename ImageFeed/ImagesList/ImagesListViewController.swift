@@ -60,7 +60,7 @@ extension ImagesListViewController: UITableViewDataSource {
         guard let imageListCell = cell as? ImagesListCell else {
             return UITableViewCell()
         }
-        
+        imageListCell.delegate = self
         configCell(for: imageListCell,with: indexPath)
         
         return imageListCell
@@ -70,7 +70,7 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController {
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         let photo = photos[indexPath.row]
-        let photoUrl = URL(string: photo.thumbImageURL)
+        let photoUrl = URL(string: photo.regularImgUrl)
         cell.dateLabel.isHidden = true
         cell.likeButton.isHidden = true
         cell.cellImage.kf.indicatorType = .activity
@@ -144,3 +144,41 @@ extension ImagesListViewController {
         
     }
 }
+
+extension ImagesListViewController: ImagesListCellDelegate {
+    func imageListCellDidTapLike(_ cell: ImagesListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else {return}
+        
+        let photo = photos[indexPath.row]
+        
+        ImagesListService.shared.changeLike(photoId: photo.id, isLike: photo.isLiked) {
+            [weak self] result in guard let self = self else {return}
+            
+            UIBlockingProgressHUD.show()
+            switch result {
+            case .success(_):
+                UIBlockingProgressHUD.dismiss()
+                
+                self.photos = ImagesListService.shared.photos
+                cell.setIsLiked(isLike: self.photos[indexPath.row].isLiked)
+            case .failure(_):
+                UIBlockingProgressHUD.dismiss()
+                
+                let alert = UIAlertController(title: "Упс..Что-то пошло не так", message: "Не удалось поставить лайк", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ок", style: .default)
+                alert.addAction(action)
+                self.present(alert, animated: true, completion: nil)
+                
+                
+            }
+            
+        }
+        
+        
+        
+    }
+    
+    
+}
+
+

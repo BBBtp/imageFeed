@@ -17,21 +17,12 @@ final class ProfileViewController: UIViewController {
     private let storage = OAuth2TokenStorage()
     private var profileImageServiceObserver: NSObjectProtocol?
     
+    private let profileLogout = ProfileLogoutService.shared
     
     @objc
     private func didTapLogoutButton() {
-        nameLabel?.removeFromSuperview()
-        nameLabel = nil
         
-        loginLabel?.removeFromSuperview()
-        loginLabel = nil
-        
-        descriptionLabel?.removeFromSuperview()
-        descriptionLabel = nil
-        
-        profileImage?.image = UIImage(systemName: "person.crop.circle.fill")
-        profileImage?.tintColor = .gray
-        
+        profileLogout.logout()
     }
     
     override func viewDidLoad() {

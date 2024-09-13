@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 import SwiftKeychainWrapper
 
+enum ImageLikeError: Error{
+    case invalidLike
+}
+
 final class ImagesListService {
     
     static let shared  = ImagesListService()
@@ -68,5 +72,48 @@ final class ImagesListService {
         task.resume()
         
     }
+    func changeLike(photoId: String, isLike: Bool,_ completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let token = storage.token else{
+            print("[ImagesListService]:[fetchPhotosNextPage]: Error get token")
+            completion(.failure(ImageLikeError.invalidLike))
+            return
+        }
+        
+        let urlString = "https://api.unsplash.com/photos/\(photoId)/like"
+        
+        guard let url = URL(string: urlString) else{
+            print("[ImagesListService]:[fetchPhotosNextPage] Error get URL")
+            completion(.failure(ImageLikeError.invalidLike))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = isLike ? "DELETE" : "POST"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.data(for:request) {
+            [weak self] result in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch result{
+                case .success(_):
+                    if let index = self.photos.firstIndex(where: {$0.id == photoId}){
+                        
+                            let photo = self.photos[index]
+                            let newPhoto = Photo(from: photo )
+                            
+                            self.photos = self.photos.withReplaced(itemAt: index, newValue: newPhoto)
+                        completion(.success(()))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+            
+        }.resume()
+    }
     
+    func clearImagesList() {
+        self.photos = []
+    }
 }
