@@ -101,7 +101,6 @@ extension ImagesListViewController {
                 print(error)
             }
         }
-        
     }
 }
 
@@ -110,11 +109,13 @@ extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
     }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == photos.count - 1 {
             ImagesListService.shared.fetchPhotosNextPage()
         }
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let photo = photos[indexPath.row]
         
@@ -141,7 +142,6 @@ extension ImagesListViewController {
                 tableView.insertRows(at: indexPaths, with: .automatic)
             } completion: { _ in}
         }
-        
     }
 }
 
@@ -169,16 +169,9 @@ extension ImagesListViewController: ImagesListCellDelegate {
                 alert.addAction(action)
                 self.present(alert, animated: true, completion: nil)
                 
-                
             }
-            
         }
-        
-        
-        
     }
-    
-    
 }
 
 
