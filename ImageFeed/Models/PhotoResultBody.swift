@@ -8,7 +8,6 @@
 import Foundation
 
 
-
 struct PhotoResult: Codable {
     let id: String
     let createdAt: String
@@ -28,7 +27,7 @@ struct UrlsResult: Codable{
     
 }
 
-struct Photo:Codable {
+struct Photo {
     let id: String
     let size: CGSize
     let createdAt: Date?
@@ -36,15 +35,16 @@ struct Photo:Codable {
     let regularImgUrl: String
     let fullImgUrl: String
     var isLiked: Bool
+    static let iso8601Formatter: ISO8601DateFormatter = {
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withFullDate, .withTime, .withDashSeparatorInDate, .withColonSeparatorInTime]
+            return formatter
+        }()
     
     init(from photoResult: PhotoResult) {
         self.id = photoResult.id
         self.size = CGSize(width: photoResult.width, height: photoResult.height)
-        self.createdAt = {
-            let date = DateFormatter()
-            date.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-            return date.date(from: photoResult.createdAt)
-        }()
+        self.createdAt = Photo.iso8601Formatter.date(from: photoResult.createdAt)
         self.welcomeDescription = photoResult.description
         self.regularImgUrl = photoResult.urls.regular ?? ""
         self.fullImgUrl = photoResult.urls.full ?? ""

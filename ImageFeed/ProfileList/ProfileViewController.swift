@@ -30,7 +30,7 @@ final class ProfileViewController: UIViewController {
         alert.addAction(actionNo)
         self.present(alert, animated: true, completion: nil)
         
-        profileLogout.logout()
+       
     }
     
     override func viewDidLoad() {
