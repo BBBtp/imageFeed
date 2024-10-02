@@ -12,6 +12,10 @@ enum imageError:Error{
     case invalidRequest
 }
 
+protocol ProfileImageServiceProtocol {
+    var avatarURL: String? {get set}
+}
+
 final class ProfileImageService{
     
     static let shared = ProfileImageService()

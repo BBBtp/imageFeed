@@ -13,11 +13,15 @@ final class AuthViewController : UIViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         if segue.identifier == ShowWebViewSegueIdentifier{
-            guard let WebViewViewController = segue.destination as? WebViewViewController
+            guard let webViewViewController = segue.destination as? WebViewViewController
             else{
                 fatalError("Error prepare \(ShowWebViewSegueIdentifier) ❌")
             }
-            WebViewViewController.delegate = self
+            let authHelper = AuthHelper()
+            let webViewPresenter = WebViewPresenter(authHelper: authHelper)
+            webViewViewController.presenter = webViewPresenter
+            webViewPresenter.view = webViewViewController
+            webViewViewController.delegate = self
         }
         else{
             super.prepare(for: segue, sender: sender)
@@ -58,10 +62,8 @@ extension AuthViewController: WebViewViewControllerDelegate {
                     delegate.didAuthenticate(self)
                     print("Successful save token")
                 case .failure(let error):
-                    let alert = UIAlertController(title: "Упс..Что-то пошло не так", message: "Не удалось войти в систему", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Ок", style: .default)
-                    alert.addAction(action)
-                    vc.present(alert, animated: true, completion: nil)
+                    let AlertModel = AlertModel(title: "Упс..Что-то пошло не так", message: "Не удалось войти в систему", firstButtonText: "Ок", secondButtonText: nil, completion: {}, secondCompletion: {})
+                    AlertPresenter.shared.show(vc: self, model: AlertModel)
                     print(error.localizedDescription)
                 }
         }
