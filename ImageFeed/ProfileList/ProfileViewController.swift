@@ -17,21 +17,20 @@ final class ProfileViewController: UIViewController {
     private let storage = OAuth2TokenStorage()
     private var profileImageServiceObserver: NSObjectProtocol?
     
+    private let profileLogout = ProfileLogoutService.shared
     
     @objc
     private func didTapLogoutButton() {
-        nameLabel?.removeFromSuperview()
-        nameLabel = nil
+        let alert = UIAlertController(title: "Пока, пока!", message: "Вы точно хотите выйти?", preferredStyle: .alert)
+        let actionYes = UIAlertAction(title: "Да", style: .default){
+            _ in self.profileLogout.logout()
+        }
+        let actionNo = UIAlertAction(title: "Нет", style: .default)
+        alert.addAction(actionYes)
+        alert.addAction(actionNo)
+        self.present(alert, animated: true, completion: nil)
         
-        loginLabel?.removeFromSuperview()
-        loginLabel = nil
-        
-        descriptionLabel?.removeFromSuperview()
-        descriptionLabel = nil
-        
-        profileImage?.image = UIImage(systemName: "person.crop.circle.fill")
-        profileImage?.tintColor = .gray
-        
+       
     }
     
     override func viewDidLoad() {

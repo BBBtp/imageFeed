@@ -68,6 +68,9 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="Active"/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked:" destination="bqK-OM-tj9" eventType="touchUpInside" id="WVk-Iu-I1q"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -284,7 +287,6 @@
         <!--Navigation Controller-->
         <scene sceneID="Lbh-z5-VgH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Llg-y8-srB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="AuthNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="SOg-9c-ZPB" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zIg-Fw-dKC">
@@ -296,6 +298,7 @@
                         <segue destination="U7H-nw-a8L" kind="relationship" relationship="rootViewController" id="rGF-yI-GUP"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Llg-y8-srB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2307" y="748"/>
         </scene>
