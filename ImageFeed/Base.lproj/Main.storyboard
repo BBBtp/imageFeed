@@ -62,6 +62,7 @@
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWS-fp-WUF" userLabel="Like Button">
                                                     <rect key="frame" x="354" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="LIke"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="MCd-Ij-Rz1"/>
                                                         <constraint firstAttribute="width" constant="44" id="YSv-Ob-u8S"/>
@@ -143,6 +144,9 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YnA-tv-aB4">
                                 <rect key="frame" x="8" y="8" width="44" height="44"/>
+                                <accessibility key="accessibilityConfiguration" identifier="nav back button white">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="FPf-U9-O5f"/>
                                     <constraint firstAttribute="width" constant="44" id="K1w-Ay-gOP"/>
@@ -205,6 +209,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHa-PM-g9p" userLabel="AuthButton">
                                 <rect key="frame" x="16" y="724" width="382" height="48"/>
                                 <color key="backgroundColor" name="YP White (iOS)"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate">
+                                    <bool key="isElement" value="YES"/>
+                                </accessibility>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="tah-hp-XDt"/>
                                 </constraints>
@@ -244,7 +251,7 @@
         <!--Web View View Controller-->
         <scene sceneID="oEv-h0-GCH">
             <objects>
-                <viewController id="TWO-IM-88p" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewViewController" id="TWO-IM-88p" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Tkx-IL-xdD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -264,6 +271,9 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mDQ-SF-HiL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" identifier="UnsplashWebView">
+                            <bool key="isElement" value="YES"/>
+                        </accessibility>
                         <constraints>
                             <constraint firstItem="Tth-8T-dWz" firstAttribute="top" secondItem="mDQ-SF-HiL" secondAttribute="top" id="5d6-Vl-e3b"/>
                             <constraint firstItem="Tth-8T-dWz" firstAttribute="leading" secondItem="mDQ-SF-HiL" secondAttribute="leading" id="7us-Bs-hwD"/>

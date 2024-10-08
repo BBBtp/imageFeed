@@ -4,10 +4,54 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Copy of ImageFeed 1.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Copy of ImageFeed.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>ImageFeed.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>UItest.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4369E9FB2C47F42300456488</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>43B6E8A52CA583DE0036A47A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>43B6E8C12CAC17C60036A47A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>43BA29062C875F7E00FFC88B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

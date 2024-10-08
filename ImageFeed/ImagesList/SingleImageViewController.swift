@@ -54,15 +54,10 @@ final class SingleImageViewController:UIViewController {
     }
     
     private func showError(with url: URL){
-        let alert = UIAlertController(title: "Упс..Что-то пошло не так", message: "Попробовать ещё раз?", preferredStyle: .alert)
-        let actionNo = UIAlertAction(title: "Не надо", style: .default)
-        let actionReset = UIAlertAction(title: "Повторить", style: .default){
-            _ in self.imageView.kf.setImage(with: url)
-        }
-        alert.addAction(actionNo)
-        alert.addAction(actionReset)
-        self.present(alert, animated: true, completion: nil)
         
+        let AlertModel = AlertModel(title: "Упс..Что-то пошло не так", message: "Попробовать ещё раз?", firstButtonText: "Не надо", secondButtonText: "Повторить", completion: {}, secondCompletion: {self.imageView.kf.setImage(with: url)})
+        
+        AlertPresenter.shared.show(vc: self, model: AlertModel)
     }
     private func rescaleAndCenterImageInScrollView(with image: UIImage) {
             imageView.image = image
