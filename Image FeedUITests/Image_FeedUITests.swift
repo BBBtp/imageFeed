@@ -10,12 +10,12 @@ import XCTest
 enum DataTests{
     static let login = "ur_email"
     static let password = "ur_pass"
-    static let lastName = "ur_ln"
-    static let profileLogin = "@ur_log"
-    static let alertName = "ur_an"
-    static let autnButtonName = "ur_bn"
-    static let singleImageBackButtonName = "ur_bn"
-    static let logoutButtonName = "ur_bn"
+    static let lastName = "ur_lastName"
+    static let profileLogin = "@ur_login"
+    static let alertName = "Alert"
+    static let autnButtonName = "Authenticate"
+    static let singleImageBackButtonName = "nav back button white"
+    static let logoutButtonName = "logout button"
 }
 class Image_FeedUITests: XCTestCase {
     private let app = XCUIApplication() // переменная приложения
